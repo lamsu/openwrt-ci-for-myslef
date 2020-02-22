@@ -1,10 +1,13 @@
 #
-# thanks and copy from 
+# This is free software, lisence use MIT.
+# 
+# Copyright (C) 2019 P3TERX <https://p3terx.com>
+# Copyright (C) 2019 KFERMercer <KFER.Mercer@gmail.com>
 # 
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: OpenWrt-CI
+name: OpenWrt-C2
 
 on:
   push:
@@ -53,11 +56,6 @@ jobs:
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
       
-      - name: flow The latest code
-        run: |
-          git remote add openwrt https://github.com/coolsnowwolf/lede.git
-          git pull openwrt master
-          git remote -v
           
       - name: Update feeds
         run: |
@@ -68,28 +66,6 @@ jobs:
         run: |
           rm -f ./.config*
           touch ./.config
-
-          #
-          # ========================固件定制部分========================
-          # 
-
-          # 
-          # 如果不对本区块做出任何编辑, 则生成默认配置固件. 
-          # 
-
-          # 以下为定制化固件选项和说明:
-          #
-
-          #
-          # 有些插件/选项是默认开启的, 如果想要关闭, 请参照以下示例进行编写:
-          # 
-          #          =========================================
-          #         |  # 取消编译VMware镜像:                   |
-          #         |  cat >> .config <<EOF                   |
-          #         |  # CONFIG_VMDK_IMAGES is not set        |
-          #         |  EOF                                    |
-          #          =========================================
-          #
 
 
           # 编译x64固件:
@@ -144,15 +120,15 @@ jobs:
           CONFIG_PACKAGE_luci-app-hd-idle=y
           CONFIG_PACKAGE_luci-app-kodexplorer=y
           CONFIG_PACKAGE_luci-app-minidlna=y
-          # CONFIG_PACKAGE_luci-app-openvpn=y
-          # CONFIG_PACKAGE_luci-app-openvpn-server=y
+          CONFIG_PACKAGE_luci-app-openvpn=y
+          CONFIG_PACKAGE_luci-app-openvpn-server=y
           CONFIG_PACKAGE_luci-app-qbittorrent=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
-          # CONFIG_PACKAGE_luci-app-ttyd=y
+          CONFIG_PACKAGE_luci-app-ttyd=y
           CONFIG_PACKAGE_luci-app-v2ray-server=y
           CONFIG_PACKAGE_luci-app-verysync=y
           CONFIG_PACKAGE_luci-app-webadmin=y
